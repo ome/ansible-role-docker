@@ -11,7 +11,7 @@ galaxy_info:
   galaxy_tags: []
 
 dependencies:
-- role: lvm-partition
+- role: openmicroscopy.lvm-partition
   lvm_vgname: "{{ docker_vgname }}"
   lvm_lvname: docker-volume
   lvm_lvmount: /var/lib/docker
