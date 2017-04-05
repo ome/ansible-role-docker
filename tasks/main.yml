@@ -1,20 +1,20 @@
 ---
 # Setup a Docker node
 
-- name: upstream docker | setup repository
+- name: docker | setup repository
   become: yes
   template:
     src: docker-repo.j2
     dest: /etc/yum.repos.d/docker.repo
     backup: no
 
-- name: upstream docker | install docker
+- name: docker | install docker
   become: yes
   yum:
     pkg: docker-engine
     state: present
 
-- name: storage | setup lvm docker-pool
+- name: docker | setup lvm docker-pool
   become: yes
   lvol:
     vg: "{{ docker_vgname }}"
@@ -23,32 +23,18 @@
     opts: "{{ docker_lvopts | default(None) }} --thin --poolmetadatasize {{ docker_metadatasize }}"
   when: docker_use_custom_storage
 
-- name: upstream docker | configure docker options
+- name: docker | configuration directory
+  become: yes
+  file:
+    path: /etc/docker
+    state: directory
+
+- name: docker | configure docker options
   become: yes
   template:
-    src: docker-engine.j2
-    dest: /etc/sysconfig/docker-engine
+    src: etc-docker-daemon-json.j2
+    dest: /etc/docker/daemon.json
     backup: yes
-  notify:
-    - restart docker
-
-# Upstream docker doesn't automatically load custom settings, so we need to
-# use a custom systemd file
-# For comparison the original docker.service file at the time of writing is
-# included as files/docker.service-1.11.0
-
-- name: upstream docker | copy systemd file
-  become: yes
-  copy:
-    dest: /etc/systemd/system/docker.service
-    src: docker.service
-  register: docker_systemd_file
-
-# Can't use a notifier because the reload must happen before a start/restart
-- name: upstream docker | reload systemd
-  become: yes
-  command: systemctl daemon-reload
-  when: docker_systemd_file.changed
   notify:
     - restart docker
 
