@@ -29,6 +29,7 @@
     path: /etc/docker
     state: directory
 
+# https://docs.docker.com/engine/reference/commandline/dockerd/#linux-configuration-file
 - name: docker | configure docker options
   become: yes
   template:

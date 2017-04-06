@@ -26,3 +26,14 @@ docker_repo_version: main
 
 # Users who can run docker
 docker_groupmembers: []
+
+
+######################################################################
+# Expert users only!
+######################################################################
+
+# Enable experimental Docker features
+docker_experimental: False
+
+# Enable debug mode on server
+docker_debug: False
