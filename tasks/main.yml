@@ -3,15 +3,14 @@
 
 - name: docker | setup repository
   become: yes
-  template:
-    src: docker-repo.j2
-    dest: /etc/yum.repos.d/docker.repo
-    backup: no
+  get_url:
+    dest: /etc/yum.repos.d/docker-ce.repo
+    url: https://download.docker.com/linux/centos/docker-ce.repo
 
 - name: docker | install docker
   become: yes
   yum:
-    pkg: docker-engine
+    pkg: docker-ce
     state: present
 
 - name: docker | setup lvm docker-pool
