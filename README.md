@@ -14,7 +14,6 @@ Defaults: `defaults/main.yml`
 - `docker_use_custom_network`: If `True` use a custom network configuration, default `False`
 
 Custom storage: If `docker_use_custom_storage` is `True` thin-pool logical volumes will be created for Docker, and a separate logical volume will be created for the Docker volume (`/var/lib/docker`).
-This is highly recommended for production use.
 
 - `docker_basefs`: Filesystem to use for the Docker containers (default xfs)
 - `docker_lvfilesystem`: Filesystem for the Docker volume (default xfs)
@@ -35,22 +34,37 @@ The following variables must be defined:
 Optional variables:
 
 - `docker_lvopts`: Additional arguments to be used when creating logical volumes
-- `docker_groupmembers`: A list of users who will be added to the `docker` system group, allows docker to be run without sudo
 - `docker_use_ipv4_nic_mtu`: Force Docker to use the MTU set by the main IPV4 interface. This may be necessary on virtualised hosts, see comment in `defaults/main.yml`.
-- `docker_repo_version`: Use a different upstream Docker release branch e.g. `testing`, do not change this unless you know what you are doing
-- `docker_groupmembers`: List of non-admin users who can run `docker`
+- `docker_groupmembers`: A list of users who will be added to the `docker` system group, allows docker to be run without sudo
 
 
 Dependencies
 ------------
 
-Depends on lvm-partition
+Depends on lvm-partition.
 
 
-Upgrades
---------
+Example Playbook
+----------------
 
-If you are using advanced networking or storage this role will override the `docker.service` file included in the distributed packages. If an upgrade to docker is planned you are advised to check for differences in `/usr/lib/systemd/system/docker.service` between the old and new RPMs, and if necessary merge any changes into `files/docker.service` in this role.
+Simple example (uses default storage overlay driver):
+
+    - hosts: localhost
+      roles:
+        - role: openmicroscopy.docker
+
+Advanced example using custom storage (the LVM volume group `VolGroup00` must already exist):
+
+    - hosts: localhost
+      roles:
+        - role: openmicroscopy.docker
+          docker_use_ipv4_nic_mtu: True
+          docker_use_custom_storage: True
+          docker_vgname: VolGroup00
+          docker_poolsize: 10g
+          docker_metadatasize: 100m
+          docker_volumesize: 5g
+          docker_groupmembers: [centos]
 
 
 Author Information
