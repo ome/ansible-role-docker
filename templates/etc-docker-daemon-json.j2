@@ -16,6 +16,5 @@
   "mtu": {{ ansible_default_ipv4.mtu }},
 {% endif %}
 
-  "experimental": {{ docker_experimental | bool | to_json }},
   "debug": {{ docker_debug | bool | to_json  }}
 }
