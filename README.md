@@ -13,6 +13,8 @@ Optional variables:
 - `docker_use_ipv4_nic_mtu`: Force Docker to use the MTU set by the main IPV4 interface. This may be necessary on virtualised hosts, see comment in `defaults/main.yml`.
 - `docker_use_custom_storage`: If `True` use a custom storage configuration, default `False`
 - `docker_use_custom_network`: If `True` use a custom network configuration, default `False`
+- `docker_systemd_setup`: Set this to False to disable automatic systemd configuration, default `False`.
+  You may wish to sue this when building virtualisation images.
 
 
 ### Custom storage

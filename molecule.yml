@@ -18,6 +18,7 @@ vagrant:
         cpus: 1
   instances:
     - name: docker
+    - name: docker-inactive
 
 docker:
   containers:
@@ -27,12 +28,23 @@ docker:
     privileged: True
     ansible_groups:
     - docker-hosts
+  - name: docker-inactive
+    image: centos
+    image_version: 7
+    ansible_groups:
+    - docker-hosts
 
 ansible:
   group_vars:
     docker-hosts:
       # This should allow docker-in-docker to work
       docker_storage_driver: vfs
+
+  host_vars:
+    docker:
+      docker_use_ipv4_nic_mtu: True
+    docker-inactive:
+      docker_systemd_setup: False
 
 verifier:
   name: testinfra

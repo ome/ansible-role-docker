@@ -2,4 +2,3 @@
 - hosts: all
   roles:
     - role: ansible-role-docker
-      docker_use_ipv4_nic_mtu: True
