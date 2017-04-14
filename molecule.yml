@@ -25,6 +25,14 @@ docker:
     image: manics/centos-systemd-ip-docker
     image_version: latest
     privileged: True
+    ansible_groups:
+    - docker-hosts
+
+ansible:
+  group_vars:
+    docker-hosts:
+      # This should allow docker-in-docker to work
+      docker_storage_driver: vfs
 
 verifier:
   name: testinfra

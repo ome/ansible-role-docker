@@ -48,6 +48,15 @@ Dependencies
 Depends on lvm-partition.
 
 
+Development
+-----------
+
+This role is partially tested by Travis-CI, which requires running Docker-in-Docker.
+When testing changes you should therefore run a full test using molecule with the Vagrant driver as part of any review:
+
+    molecule test --driver vagrant
+
+
 Example Playbook
 ----------------
 
