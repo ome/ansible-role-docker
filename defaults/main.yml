@@ -29,5 +29,8 @@ docker_groupmembers: []
 # Expert users only!
 ######################################################################
 
+# Use a custom storage driver
+docker_storage_driver: ''
+
 # Enable debug mode on server
 docker_debug: False

@@ -6,6 +6,9 @@
     "dm.thinpooldev=/dev/mapper/{{ docker_vgname }}-docker--pool"
   ],
 {% endif %}
+{% if docker_storage_driver | length > 0 %}
+  "storage-driver": "{{ docker_storage_driver }}",
+{% endif %}
 
 {% if docker_use_custom_network %}
   "bridge": "{{ docker_bridge_name }}",
