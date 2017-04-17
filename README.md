@@ -14,7 +14,7 @@ Optional variables:
 - `docker_use_custom_storage`: If `True` use a custom storage configuration, default `False`
 - `docker_use_custom_network`: If `True` use a custom network configuration, default `False`
 - `docker_systemd_setup`: Set this to False to disable automatic systemd configuration, default `False`.
-  You may wish to sue this when building virtualisation images.
+  You may wish to use this when building virtualisation images.
 
 
 ### Custom storage
