@@ -1,0 +1,23 @@
+{
+{% if docker_use_custom_storage %}
+  "storage-driver": "devicemapper",
+  "storage-opts": [
+    "dm.fs={{ docker_basefs }}",
+    "dm.thinpooldev=/dev/mapper/{{ docker_vgname }}-docker--pool"
+  ],
+{% endif %}
+{% if docker_storage_driver | length > 0 %}
+  "storage-driver": "{{ docker_storage_driver }}",
+{% endif %}
+
+{% if docker_use_custom_network %}
+  "bridge": "{{ docker_bridge_name }}",
+  "fixed-cidr": "{{ docker_bridge_ips }}",
+{% endif %}
+
+{% if docker_use_ipv4_nic_mtu %}
+  "mtu": {{ ansible_default_ipv4.mtu }},
+{% endif %}
+
+  "debug": {{ docker_debug | bool | to_json  }}
+}

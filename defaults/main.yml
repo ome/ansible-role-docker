@@ -7,9 +7,6 @@ docker_use_custom_storage: False
 # Set to True if using a custom network configuration
 docker_use_custom_network: False
 
-# Any other arguments to be passed to the docker daemon
-docker_additional_args:
-
 # Filesystem to use for the Docker containers
 docker_basefs: xfs
 
@@ -24,8 +21,19 @@ docker_lvfilesystem: xfs
 # TODO: Add an option to explicitly set the MTU in case auto-detection fails
 docker_use_ipv4_nic_mtu: False
 
-# Upstream Docker release branch
-docker_repo_version: main
-
 # Users who can run docker
 docker_groupmembers: []
+
+# Setup systemd services
+docker_systemd_setup: True
+
+
+######################################################################
+# Expert users only!
+######################################################################
+
+# Use a custom storage driver
+docker_storage_driver: ''
+
+# Enable debug mode on server
+docker_debug: False
