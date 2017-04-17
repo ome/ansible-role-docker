@@ -23,7 +23,7 @@ vagrant:
 docker:
   containers:
   - name: docker
-    image: manics/centos-systemd-ip-docker
+    image: openmicroscopy/centos-systemd-ip
     image_version: latest
     privileged: True
     ansible_groups:
