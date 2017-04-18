@@ -69,7 +69,19 @@ Simple example (uses default storage overlay driver):
       roles:
         - role: openmicroscopy.docker
 
-Advanced example using custom storage (the LVM volume group `VolGroup00` must already exist):
+Example using the default storage driver, with a dedicated logical volume for docker:
+
+    - hosts: localhost
+      roles:
+        - role: openmicroscopy.lvm-partition
+          lvm_lvname: var_lib_docker
+          lvm_lvmount: /var/lib/docker
+          lvm_lvsize: 100g
+          lvm_lvfilesystem: ext4
+        - role: docker
+
+Advanced example using custom storage and listening on external port 4243 (insecure).
+The LVM volume group `VolGroup00` must already exist:
 
     - hosts: localhost
       roles:
@@ -81,17 +93,10 @@ Advanced example using custom storage (the LVM volume group `VolGroup00` must al
           docker_metadatasize: 100m
           docker_volumesize: 5g
           docker_groupmembers: [centos]
-
-Example using the default storage driver, with a dedicate logical volume for docker:
-
-    - hosts: localhost
-      roles:
-        - role: openmicroscopy.lvm-partition
-          lvm_lvname: var_lib_docker
-          lvm_lvmount: /var/lib/docker
-          lvm_lvsize: 100g
-          lvm_lvfilesystem: ext4
-        - role: docker
+          docker_additional_options:
+            hosts:
+              - tcp://0.0.0.0:4243
+              - unix:///var/run/docker.sock
 
 
 Author Information
