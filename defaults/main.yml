@@ -21,6 +21,9 @@ docker_lvfilesystem: xfs
 # TODO: Add an option to explicitly set the MTU in case auto-detection fails
 docker_use_ipv4_nic_mtu: False
 
+# Dictionary of additional docker options
+docker_additional_options: {}
+
 # Users who can run docker
 docker_groupmembers: []
 
