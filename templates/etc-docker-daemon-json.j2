@@ -19,5 +19,9 @@
   "mtu": {{ ansible_default_ipv4.mtu }},
 {% endif %}
 
+{% for key in docker_additional_options %}
+  "{{ key }}": {{ docker_additional_options[key] | to_json }},
+{% endfor %}
+
   "debug": {{ docker_debug | bool | to_json  }}
 }

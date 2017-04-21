@@ -11,6 +11,7 @@ Role Variables
 Optional variables:
 - `docker_groupmembers`: A list of users who will be added to the `docker` system group, allows docker to be run without sudo
 - `docker_use_ipv4_nic_mtu`: Force Docker to use the MTU set by the main IPV4 interface. This may be necessary on virtualised hosts, see comment in `defaults/main.yml`.
+- `docker_additional_options`: Dictionary of additional Docker configuration options.
 - `docker_use_custom_storage`: If `True` use a custom storage configuration, default `False`
 - `docker_use_custom_network`: If `True` use a custom network configuration, default `False`
 - `docker_systemd_setup`: Set this to False to disable automatic systemd configuration, default `False`.
@@ -68,7 +69,19 @@ Simple example (uses default storage overlay driver):
       roles:
         - role: openmicroscopy.docker
 
-Advanced example using custom storage (the LVM volume group `VolGroup00` must already exist):
+Example using the default storage driver, with a dedicated logical volume for docker:
+
+    - hosts: localhost
+      roles:
+        - role: openmicroscopy.lvm-partition
+          lvm_lvname: var_lib_docker
+          lvm_lvmount: /var/lib/docker
+          lvm_lvsize: 100g
+          lvm_lvfilesystem: ext4
+        - role: docker
+
+Advanced example using custom storage and listening on external port 4243 (insecure).
+The LVM volume group `VolGroup00` must already exist:
 
     - hosts: localhost
       roles:
@@ -80,17 +93,10 @@ Advanced example using custom storage (the LVM volume group `VolGroup00` must al
           docker_metadatasize: 100m
           docker_volumesize: 5g
           docker_groupmembers: [centos]
-
-Example using the default storage driver, with a dedicate logical volume for docker:
-
-    - hosts: localhost
-      roles:
-        - role: openmicroscopy.lvm-partition
-          lvm_lvname: var_lib_docker
-          lvm_lvmount: /var/lib/docker
-          lvm_lvsize: 100g
-          lvm_lvfilesystem: ext4
-        - role: docker
+          docker_additional_options:
+            hosts:
+              - tcp://0.0.0.0:4243
+              - unix:///var/run/docker.sock
 
 
 Author Information
