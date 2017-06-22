@@ -1,6 +1,9 @@
 ---
 # defaults file for roles/docker
 
+# Use the upstream docker community edition, if False use the distribution version
+docker_install_upstream: True
+
 # Set to True if using a custom storage configuration
 docker_use_custom_storage: False
 
