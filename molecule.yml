@@ -18,11 +18,18 @@ vagrant:
         cpus: 1
   instances:
     - name: docker
+    - name: docker-distro
     - name: docker-inactive
 
 docker:
   containers:
   - name: docker
+    image: openmicroscopy/centos-systemd-ip
+    image_version: latest
+    privileged: True
+    ansible_groups:
+    - docker-hosts
+  - name: docker-distro
     image: openmicroscopy/centos-systemd-ip
     image_version: latest
     privileged: True
@@ -45,6 +52,8 @@ ansible:
       docker_use_ipv4_nic_mtu: True
     docker-inactive:
       docker_systemd_setup: False
+    docker-distro:
+      docker_install_upstream: False
 
 verifier:
   name: testinfra

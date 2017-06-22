@@ -1,7 +1,7 @@
 import testinfra.utils.ansible_runner
 
 testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
-    '.molecule/ansible_inventory').get_hosts('docker')
+    '.molecule/ansible_inventory').get_hosts('docker-distro')
 
 
 def test_service_running_and_enabled(Service):
@@ -18,7 +18,7 @@ def test_docker_socket_unprivileged(Command, Sudo):
     with Sudo('test'):
         r = Command('docker info')
     assert r.rc > 0
-    assert 'permission denied' in r.stderr
+    assert 'Cannot connect' in r.stderr
 
 
 def test_docker_tcp_unprivileged(Command, Sudo):
@@ -33,5 +33,5 @@ def test_docker_run(Command, Sudo):
 
 
 def test_docker_package(Package):
-    assert Package('docker-ce').is_installed
-    assert not Package('docker').is_installed
+    assert Package('docker').is_installed
+    assert not Package('docker-ce').is_installed
