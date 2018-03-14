@@ -10,6 +10,7 @@ Role Variables
 
 Optional variables:
 - `docker_install_upstream`: If `True` install the upstream docker package, otherwise install the distribution version, default `True`
+- `docker_version`: Install a particular version of docker, e.g. `17.12.1.ce-1.el7.centos`, default current
 - `docker_groupmembers`: A list of users who will be added to the `docker` system group, allows docker to be run without sudo
 - `docker_use_ipv4_nic_mtu`: Force Docker to use the MTU set by the main IPV4 interface. This may be necessary on virtualised hosts, see comment in `defaults/main.yml`.
 - `docker_additional_options`: Dictionary of additional Docker configuration options.

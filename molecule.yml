@@ -54,6 +54,7 @@ ansible:
       docker_systemd_setup: False
     docker-distro:
       docker_install_upstream: False
+      docker_version: 1.12.6
 
 verifier:
   name: testinfra

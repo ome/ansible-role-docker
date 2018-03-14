@@ -35,3 +35,8 @@ def test_docker_run(Command, Sudo):
 def test_docker_package(Package):
     assert Package('docker').is_installed
     assert not Package('docker-ce').is_installed
+
+
+def test_docker_version(Command):
+    assert Command.check_output(
+        "docker version --format '{{.Server.Version}}'") == '1.12.6'
