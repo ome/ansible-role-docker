@@ -50,10 +50,14 @@ ansible:
   host_vars:
     docker:
       docker_use_ipv4_nic_mtu: True
+      # Latest version 17.12.1.ce-1.el7.centos has a bug that prevents
+      # testing on travis: https://github.com/docker/for-linux/issues/219
+      docker_version: 17.09.1.ce-1.el7.centos
     docker-inactive:
       docker_systemd_setup: False
     docker-distro:
       docker_install_upstream: False
+      docker_version: 1.12.6
 
 verifier:
   name: testinfra

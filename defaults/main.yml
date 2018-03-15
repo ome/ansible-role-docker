@@ -4,6 +4,9 @@
 # Use the upstream docker community edition, if False use the distribution version
 docker_install_upstream: True
 
+# Docker version to be installed
+docker_version: ''
+
 # Set to True if using a custom storage configuration
 docker_use_custom_storage: False
 

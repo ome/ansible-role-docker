@@ -10,7 +10,7 @@
 - name: docker | install docker
   become: yes
   yum:
-    pkg: "{{ docker_install_upstream | ternary ('docker-ce', 'docker') }}"
+    pkg: "{{ docker_install_upstream | ternary ('docker-ce', 'docker') }}{{ (docker_version | length > 0) | ternary('-' + docker_version, '') }}"
     state: present
 
 - name: docker | setup lvm docker-pool
