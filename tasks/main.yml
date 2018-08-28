@@ -1,6 +1,9 @@
 ---
 # Setup a Docker node
 
+- include: redhat.yml
+  when: ansible_distribution == 'RedHat'
+
 - name: docker | setup repository
   become: yes
   get_url:
