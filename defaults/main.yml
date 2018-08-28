@@ -1,9 +1,6 @@
 ---
 # defaults file for roles/docker
 
-# Use the upstream docker community edition, if False use the distribution version
-docker_install_upstream: True
-
 # Docker version to be installed
 docker_version: ''
 

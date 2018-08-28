@@ -1,6 +1,6 @@
 [dockerrepo]
 name=Docker Repository
 baseurl=https://yum.dockerproject.org/repo/{{ docker_repo_version }}/centos/7
-enabled={{ docker_install_upstream | ternary (1, 0) }}
+enabled=1
 gpgcheck=1
 gpgkey=https://yum.dockerproject.org/gpg
