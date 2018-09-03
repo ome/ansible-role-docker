@@ -1,3 +1,10 @@
+# Changes in Version 3
+
+## Summary of breaking changes
+- Removed support for installing distribution docker
+- Removed `docker_install_upstream` parameter
+
+
 # Changes in Version 2
 
 ## Summary of breaking changes
