@@ -10,7 +10,7 @@
 
   tasks:
     - name: create unprivileged user
-      become: yes
+      become: true
       user:
         name: test
         state: present

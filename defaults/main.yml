@@ -5,10 +5,10 @@
 docker_version: ''
 
 # Set to True if using a custom storage configuration
-docker_use_custom_storage: False
+docker_use_custom_storage: false
 
 # Set to True if using a custom network configuration
-docker_use_custom_network: False
+docker_use_custom_network: false
 
 # Filesystem to use for the Docker containers
 docker_basefs: xfs
@@ -22,7 +22,7 @@ docker_lvfilesystem: xfs
 # - https://github.com/docker/docker/issues/22028
 # - https://github.com/docker/docker/issues/12565
 # TODO: Add an option to explicitly set the MTU in case auto-detection fails
-docker_use_ipv4_nic_mtu: False
+docker_use_ipv4_nic_mtu: false
 
 # Dictionary of additional docker options
 docker_additional_options: {}
@@ -31,7 +31,7 @@ docker_additional_options: {}
 docker_groupmembers: []
 
 # Setup systemd services
-docker_systemd_setup: True
+docker_systemd_setup: true
 
 
 ######################################################################
@@ -42,4 +42,4 @@ docker_systemd_setup: True
 docker_storage_driver: ''
 
 # Enable debug mode on server
-docker_debug: False
+docker_debug: false

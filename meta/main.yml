@@ -1,3 +1,4 @@
+---
 galaxy_info:
   author: ome-devel@lists.openmicroscopy.org.uk
   description: Install upstream Docker
@@ -5,17 +6,17 @@ galaxy_info:
   license: BSD
   min_ansible_version: 2.3
   platforms:
-  - name: EL
-    versions:
-    - 7
+    - name: EL
+      versions:
+        - 7
   galaxy_tags: []
 
-dependencies:
-- role: openmicroscopy.lvm-partition
-  lvm_vgname: "{{ docker_vgname }}"
-  lvm_lvname: docker-volume
-  lvm_lvmount: /var/lib/docker
-  lvm_lvsize: "{{ docker_volumesize }}"
-  lvm_lvfilesystem: "{{ docker_lvfilesystem }}"
-  lvm_lvopts: "{{ docker_lvopts | default(None) }}"
-  when: docker_use_custom_storage
+  dependencies:
+    - role: openmicroscopy.lvm-partition
+      lvm_vgname: "{{ docker_vgname }}"
+      lvm_lvname: docker-volume
+      lvm_lvmount: /var/lib/docker
+      lvm_lvsize: "{{ docker_volumesize }}"
+      lvm_lvfilesystem: "{{ docker_lvfilesystem }}"
+      lvm_lvopts: "{{ docker_lvopts | default(None) }}"
+      when: docker_use_custom_storage

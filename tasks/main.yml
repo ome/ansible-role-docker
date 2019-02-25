@@ -5,54 +5,58 @@
   when: ansible_distribution == 'RedHat'
 
 - name: docker | setup repository
-  become: yes
+  become: true
   get_url:
     dest: /etc/yum.repos.d/docker-ce.repo
     url: https://download.docker.com/linux/centos/docker-ce.repo
 
 - name: docker | install docker
-  become: yes
+  become: true
   yum:
-    pkg: "docker-ce{{ (docker_version | length > 0) | ternary('-' + docker_version, '') }}"
+    pkg: >
+      docker-ce{{ (docker_version | length > 0) |
+      ternary('-' + docker_version, '') }}
     state: present
 
 - name: docker | setup lvm docker-pool
-  become: yes
+  become: true
   lvol:
     vg: "{{ docker_vgname }}"
     lv: docker-pool
     size: "{{ docker_poolsize }}"
-    opts: "{{ docker_lvopts | default(None) }} --thin --poolmetadatasize {{ docker_metadatasize }}"
+    opts: >
+      {{ docker_lvopts | default(None) }} --thin --poolmetadatasize
+      {{ docker_metadatasize }}
   when: docker_use_custom_storage
 
 - name: docker | configuration directory
-  become: yes
+  become: true
   file:
     path: /etc/docker
     state: directory
 
 # https://docs.docker.com/engine/reference/commandline/dockerd/#linux-configuration-file
 - name: docker | configure docker options
-  become: yes
+  become: true
   template:
     src: etc-docker-daemon-json.j2
     dest: /etc/docker/daemon.json
-    backup: yes
+    backup: true
   notify:
     - restart docker
 
 - name: docker | enable
-  become: yes
+  become: true
   service:
     name: docker
     state: started
-    enabled: yes
+    enabled: true
   when: docker_systemd_setup
 
 - name: docker | group members
-  become: yes
+  become: true
   user:
     name: "{{ item }}"
     groups: docker
-    append: yes
+    append: true
   with_items: "{{ docker_groupmembers }}"

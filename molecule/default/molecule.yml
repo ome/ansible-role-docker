@@ -12,12 +12,12 @@ platforms:
     privileged: true
     command: /sbin/init
     ansible_groups:
-    - docker-hosts
+      - docker-hosts
   - name: docker-inactive
     image: centos
     image_version: 7
     ansible_groups:
-    - docker-hosts
+      - docker-hosts
 provisioner:
   name: ansible
   lint:
