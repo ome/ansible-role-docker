@@ -3,3 +3,14 @@
   hosts: all
   roles:
     - role: ansible-role-docker
+      docker_additional_options:
+        hosts:
+          - tcp://127.0.0.1:4243
+          - unix:///var/run/docker.sock
+
+  tasks:
+    - name: create unprivileged user
+      become: yes
+      user:
+        name: test
+        state: present
