@@ -7,8 +7,8 @@
   command: subscription-manager repos --list-enabled
   register: _subscription_manager_repos
   check_mode: false
-  changed_when: >
-    "'rhel-7-server-extras-rpms' not in _subscription_manager_repos.stdout"
+  changed_when: >-
+    'rhel-7-server-extras-rpms' not in _subscription_manager_repos.stdout
 
 - name: docker | enable rhel-7-server-extras-rpms repo
   become: true

@@ -3,12 +3,12 @@ import os
 import testinfra.utils.ansible_runner
 
 testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
-    os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('docker-docker')
+    os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('docker')
 
 
 def test_service_running_and_enabled(host):
     assert host.service('docker').is_running
-    assert host.seervice('docker').is_enabled
+    assert host.service('docker').is_enabled
 
 
 def test_docker_info(host):
