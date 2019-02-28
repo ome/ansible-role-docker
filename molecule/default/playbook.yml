@@ -1,5 +1,6 @@
 ---
-- hosts: all
+- name: Converge
+  hosts: all
   roles:
     - role: ansible-role-docker
       docker_additional_options:
@@ -9,7 +10,7 @@
 
   tasks:
     - name: create unprivileged user
-      become: yes
+      become: true
       user:
         name: test
         state: present

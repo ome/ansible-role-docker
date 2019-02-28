@@ -2,7 +2,7 @@
 # Handlers for docker
 
 - name: restart docker
-  become: yes
+  become: true
   service:
     name: docker
     state: restarted

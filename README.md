@@ -1,6 +1,9 @@
 Docker
 ======
 
+[![Build Status](https://travis-ci.org/openmicroscopy/ansible-role-docker.svg)](https://travis-ci.org/openmicroscopy/ansible-role-docker)
+[![Ansible Role](https://img.shields.io/ansible/role/14758.svg)](https://galaxy.ansible.com/openmicroscopy/docker/)
+
 Setup Docker, provides options for using an advanced storage or networking configuration.
 Installs the latest official upstream Docker (Community Edition).
 
