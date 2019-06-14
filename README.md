@@ -1,8 +1,8 @@
 Docker
 ======
 
-[![Build Status](https://travis-ci.org/openmicroscopy/ansible-role-docker.svg)](https://travis-ci.org/openmicroscopy/ansible-role-docker)
-[![Ansible Role](https://img.shields.io/ansible/role/14758.svg)](https://galaxy.ansible.com/openmicroscopy/docker/)
+[![Build Status](https://travis-ci.org/ome/ansible-role-docker.svg)](https://travis-ci.org/ome/ansible-role-docker)
+[![Ansible Role](https://img.shields.io/ansible/role/14758.svg)](https://galaxy.ansible.com/ome/docker/)
 
 Setup Docker, provides options for using an advanced storage or networking configuration.
 Installs the latest official upstream Docker (Community Edition).
@@ -75,25 +75,25 @@ Simple example (uses default storage overlay driver):
 
     - hosts: localhost
       roles:
-        - role: openmicroscopy.docker
+        - role: ome.docker
 
 Example using the default storage driver, with a dedicated logical volume for docker:
 
     - hosts: localhost
       roles:
-        - role: openmicroscopy.lvm-partition
+        - role: ome.lvm_partition
           lvm_lvname: var_lib_docker
           lvm_lvmount: /var/lib/docker
           lvm_lvsize: 100g
           lvm_lvfilesystem: ext4
-        - role: docker
+        - role: ome.docker
 
 Advanced example using custom storage and listening on external port 4243 (insecure).
 The LVM volume group `VolGroup00` must already exist:
 
     - hosts: localhost
       roles:
-        - role: openmicroscopy.docker
+        - role: ome.docker
           docker_use_ipv4_nic_mtu: True
           docker_use_custom_storage: True
           docker_vgname: VolGroup00

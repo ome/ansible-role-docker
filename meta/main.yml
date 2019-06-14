@@ -9,10 +9,11 @@ galaxy_info:
     - name: EL
       versions:
         - 7
+  role_name: docker
   galaxy_tags: []
 
   dependencies:
-    - role: openmicroscopy.lvm-partition
+    - role: ome.lvm_partition
       lvm_vgname: "{{ docker_vgname }}"
       lvm_lvname: docker-volume
       lvm_lvmount: /var/lib/docker
