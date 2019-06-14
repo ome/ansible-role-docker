@@ -2,7 +2,7 @@ Docker
 ======
 
 [![Build Status](https://travis-ci.org/ome/ansible-role-docker.svg)](https://travis-ci.org/ome/ansible-role-docker)
-[![Ansible Role](https://img.shields.io/ansible/role/14758.svg)](https://galaxy.ansible.com/ome/docker/)
+[![Ansible Role](https://img.shields.io/ansible/role/41258.svg)](https://galaxy.ansible.com/ome/docker/)
 
 Setup Docker, provides options for using an advanced storage or networking configuration.
 Installs the latest official upstream Docker (Community Edition).
