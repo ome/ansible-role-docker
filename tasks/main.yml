@@ -4,16 +4,36 @@
 - include: redhat.yml
   when: ansible_distribution == 'RedHat'
 
-- name: docker | setup repository
+- name: docker | download repository config
   become: true
   get_url:
-    dest: /etc/yum.repos.d/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo.original
     url: https://download.docker.com/linux/centos/docker-ce.repo
+
+- name: docker | read repository config
+  become: true
+  slurp:
+    src: /etc/yum.repos.d/docker-ce.repo.original
+  register: _docker_repo
+  # Unnecessarily long output
+  no_log: true
+
+- name: docker | write repository config
+  become: true
+  copy:
+    content: >-
+      {{ _docker_repo.content | b64decode |
+         regex_replace('\$releasever',
+           (docker_repo_force_releasever | length > 0) | ternary(
+           docker_repo_force_releasever, '$releasever')
+         )
+      }}
+    dest: /etc/yum.repos.d/docker-ce.repo
 
 - name: docker | install docker
   become: true
   yum:
-    pkg: >
+    name: >
       docker-ce{{ (docker_version | length > 0) |
       ternary('-' + docker_version, '') }}
     state: present
