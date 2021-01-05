@@ -23,10 +23,7 @@
   copy:
     content: >-
       {{ _docker_repo.content | b64decode |
-         regex_replace('\$releasever',
-           (docker_repo_force_releasever | length > 0) | ternary(
-           docker_repo_force_releasever, '$releasever')
-         )
+         regex_replace('\$releasever', docker_repo_force_releasever)
       }}
     dest: /etc/yum.repos.d/docker-ce.repo
 

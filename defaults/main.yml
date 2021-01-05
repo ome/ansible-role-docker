@@ -34,7 +34,7 @@ docker_groupmembers: []
 docker_systemd_setup: true
 
 # Override the releasever in the yum repo configuration
-docker_repo_force_releasever: ''
+docker_repo_force_releasever: '$releasever'
 
 
 ######################################################################
