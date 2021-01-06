@@ -24,6 +24,7 @@ Optional variables:
 - `docker_use_custom_network`: If `True` use a custom network configuration, default `False`
 - `docker_systemd_setup`: Set this to False to disable automatic systemd configuration, default `False`.
   You may wish to use this when building virtualisation images.
+- `docker_repo_force_releasever`: The repo config uses the `$releasever` variables. On some systems this may not work, if necessary you can forcibly override it by setting this variable.
 
 
 ### Custom storage
