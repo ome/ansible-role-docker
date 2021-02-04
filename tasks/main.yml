@@ -26,6 +26,7 @@
          regex_replace('\$releasever', docker_repo_force_releasever)
       }}
     dest: /etc/yum.repos.d/docker-ce.repo
+    mode: 0644
 
 - name: docker | install docker
   become: true
@@ -51,6 +52,7 @@
   file:
     path: /etc/docker
     state: directory
+    mode: 0755
 
 # https://docs.docker.com/engine/reference/commandline/dockerd/#linux-configuration-file
 - name: docker | configure docker options
@@ -59,6 +61,7 @@
     src: etc-docker-daemon-json.j2
     dest: /etc/docker/daemon.json
     backup: true
+    mode: 0644
   notify:
     - restart docker
 

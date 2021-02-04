@@ -1,7 +1,7 @@
 Docker
 ======
 
-[![Build Status](https://travis-ci.org/ome/ansible-role-docker.svg)](https://travis-ci.org/ome/ansible-role-docker)
+[![Actions Status](https://github.com/ome/ansible-role-docker/workflows/Molecule/badge.svg)](https://github.com/ome/ansible-role-docker/actions)
 [![Ansible Role](https://img.shields.io/ansible/role/14758.svg)](https://galaxy.ansible.com/ome/docker/)
 
 Setup Docker, provides options for using an advanced storage or networking configuration.
