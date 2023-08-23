@@ -3,8 +3,10 @@ dependency:
   name: galaxy
 driver:
   name: docker
-lint:
-  name: yamllint
+lint: |
+    yamllint .
+    ansible-lint
+    flake8
 platforms:
   # For mysterious reasons naming something "docker" with the current
   # ome-ansible-molecule versions fails
@@ -39,5 +41,3 @@ scenario:
   name: default
 verifier:
   name: testinfra
-  lint:
-    name: flake8
