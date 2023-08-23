@@ -2,7 +2,7 @@
 - name: Converge
   hosts: all
   roles:
-    - role: ansible-role-docker
+    - role: ome.docker
       docker_additional_options:
         hosts:
           - tcp://127.0.0.1:4243

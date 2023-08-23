@@ -10,4 +10,5 @@ def test_docker_installed(host):
     with host.sudo():
         cmd = host.command('docker info')
     assert cmd.rc == 1
-    assert 'ERROR: Cannot connect to the Docker daemon' in cmd.stdout
+    # the error should be chekced in stderr not stdout
+    assert 'ERROR: Cannot connect to the Docker daemon' in cmd.stderr
