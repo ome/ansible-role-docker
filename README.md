@@ -2,7 +2,7 @@ Docker
 ======
 
 [![Actions Status](https://github.com/ome/ansible-role-docker/workflows/Molecule/badge.svg)](https://github.com/ome/ansible-role-docker/actions)
-[![Ansible Role](https://img.shields.io/ansible/role/41258.svg)](https://galaxy.ansible.com/ome/docker/)
+[![Ansible Role](https://img.shields.io/badge/ansible--galaxy-docker-blue.svg)](https://galaxy.ansible.com/ui/standalone/roles/ome/docker/)
 
 Setup Docker, provides options for using an advanced storage or networking configuration.
 Installs the latest official upstream Docker (Community Edition).
