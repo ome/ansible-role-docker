@@ -59,7 +59,7 @@
 - name: docker | remove options from service
   ansible.builtin.replace:
     path:  /usr/lib/systemd/system/docker.service
-    regexp: ExecStart=/usr/bin/dockerd "-H fd:// --containerd=/run/containerd/containerd.sock"
+    regexp: ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
     replace: ExecStart=/usr/bin/dockerd
 
 - name: docker | enable
