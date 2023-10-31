@@ -11,15 +11,22 @@ platforms:
   # For mysterious reasons naming something "docker" with the current
   # ome-ansible-molecule versions fails
   - name: xdockerx
-    image: centos/systemd:latest
+    image: eniocarboni/docker-rockylinux-systemd:9
     privileged: true
     command: /sbin/init
     groups:
       - docker-hosts
+    cgroupns_mode: host
+    tmpfs:
+      - /sys/fs/cgroup
   - name: docker-inactive
-    image: centos:7
+    image: rockylinux:9
     groups:
       - docker-hosts
+    privileged: true
+    cgroupns_mode: host
+    tmpfs:
+      - /sys/fs/cgroup
 provisioner:
   name: ansible
   lint:
@@ -34,7 +41,7 @@ provisioner:
         docker_use_ipv4_nic_mtu: true
         # Latest version 17.12.1.ce-1.el7.centos has a bug that prevents
         # testing on travis: https://github.com/docker/for-linux/issues/219
-        docker_version: 17.09.1.ce-1.el7.centos
+        #docker_version: 17.09.1.ce-1.el7.centos
       docker-inactive:
         docker_systemd_setup: false
 scenario:

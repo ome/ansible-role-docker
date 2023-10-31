@@ -1,2 +1,5 @@
 ---
-- src: ome.lvm_partition
+
+- name: lvm_partition
+  src: https://github.com/khaledk2/ansible-role-lvm-partition
+  version: rocky9

@@ -1,39 +1,29 @@
 ---
 # Setup a Docker node
 
-- include: redhat.yml
-  when: ansible_distribution == 'RedHat'
+- name: docker | Import a key for docker
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://download.docker.com/linux/centos/gpg
 
-- name: docker | download repository config
+- name: docker | setup dnf repository
   become: true
-  get_url:
-    dest: /etc/yum.repos.d/docker-ce.repo.original
-    url: https://download.docker.com/linux/centos/docker-ce.repo
-
-- name: docker | read repository config
-  become: true
-  slurp:
-    src: /etc/yum.repos.d/docker-ce.repo.original
-  register: _docker_repo
-  # Unnecessarily long output
-  no_log: true
-
-- name: docker | write repository config
-  become: true
-  copy:
-    content: >-
-      {{ _docker_repo.content | b64decode |
-         regex_replace('\$releasever', docker_repo_force_releasever)
-      }}
-    dest: /etc/yum.repos.d/docker-ce.repo
-    mode: 0644
+  ansible.builtin.dnf:
+    update_cache: true
+    name:
+        - https://download.docker.com/linux/centos/9/x86_64/stable/Packages/containerd.io-1.6.24-3.1.el9.x86_64.rpm
+        - https://download.docker.com/linux/centos/9/x86_64/stable/Packages/docker-ce-20.10.24-3.el9.x86_64.rpm
+        - https://download.docker.com/linux/centos/9/x86_64/stable/Packages/docker-ce-cli-20.10.24-3.el9.x86_64.rpm
+        - https://download.docker.com/linux/centos/9/x86_64/stable/Packages/docker-scan-plugin-0.23.0-3.el9.x86_64.rpm
+        - https://download.docker.com/linux/centos/9/x86_64/stable/Packages/docker-ce-rootless-extras-24.0.7-1.el9.x86_64.rpm
+    state: present
 
 - name: docker | install docker
   become: true
-  yum:
-    name: >
-      docker-ce{{ (docker_version | length > 0) |
-      ternary('-' + docker_version, '') }}
+  ansible.builtin.yum:
+    update_cache: true
+    name:
+      - docker-ce
     state: present
 
 - name: docker | setup lvm docker-pool
@@ -65,12 +55,20 @@
   notify:
     - restart docker
 
+# change service file to remove _H options from service file to be able to use daemon.json
+- name: docker | remove options from service
+  ansible.builtin.replace:
+    path:  /usr/lib/systemd/system/docker.service
+    regexp: ExecStart=/usr/bin/dockerd "-H fd:// --containerd=/run/containerd/containerd.sock"
+    replace: ExecStart=/usr/bin/dockerd
+
 - name: docker | enable
   become: true
   service:
     name: docker
     state: started
     enabled: true
+  # ignore_errors: true
   when: docker_systemd_setup
 
 - name: docker | group members
