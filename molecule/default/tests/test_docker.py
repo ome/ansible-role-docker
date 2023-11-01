@@ -3,7 +3,7 @@ import os
 import testinfra.utils.ansible_runner
 
 testinfra_hosts = testinfra.utils.ansible_runner.AnsibleRunner(
-    os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('docker')
+    os.environ['MOLECULE_INVENTORY_FILE']).get_hosts('xdockerx')
 
 
 def test_service_running_and_enabled(host):
@@ -20,7 +20,7 @@ def test_docker_socket_unprivileged(host):
     with host.sudo('test'):
         r = host.command('docker info')
     assert r.rc > 0
-    assert 'permission denied' in r.stderr
+    assert 'permission denied' in r.stdout
 
 
 def test_docker_tcp_unprivileged(host):
@@ -32,7 +32,7 @@ def test_docker_tcp_unprivileged(host):
 def test_docker_run(host):
     with host.sudo():
         out = host.command.check_output('docker run busybox id')
-    assert out == 'uid=0(root) gid=0(root) groups=10(wheel)'
+    assert out == 'uid=0(root) gid=0(root) groups=0(root),10(wheel)'
 
 
 def test_docker_package(host):
