@@ -1,7 +1,7 @@
 ---
 
 - name: Set up partition
-  include_role:
+  ansible.builtin.include_role:
     name: ome.lvm_partition
   vars:
     lvm_vgname: "{{ docker_vgname }}"
