@@ -1,5 +1,6 @@
 ---
 # Setup a Docker node
+- import_tasks: pre_tasks.yml
 
 - name: docker | Import a key for docker
   ansible.builtin.rpm_key:
