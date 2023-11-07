@@ -1,5 +1,6 @@
 ---
 # Setup a Docker node
+- ansible.builtin.import_tasks: pre_tasks.yml
 
 - name: docker | Import a key for docker
   ansible.builtin.rpm_key:
@@ -64,7 +65,7 @@
 
 - name: docker | enable
   become: true
-  service:
+  ansible.builtin.service:
     name: docker
     state: started
     enabled: true
@@ -73,7 +74,7 @@
 
 - name: docker | group members
   become: true
-  user:
+  ansible.builtin.user:
     name: "{{ item }}"
     groups: docker
     append: true

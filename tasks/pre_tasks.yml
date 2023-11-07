@@ -1,0 +1,13 @@
+---
+
+- name: Set up partition
+  ansible.builtin.include_role:
+    name: ome.lvm_partition
+  vars:
+    lvm_vgname: "{{ docker_vgname }}"
+    lvm_lvname: docker-volume
+    lvm_lvmount: /var/lib/docker
+    lvm_lvsize: "{{ docker_volumesize }}"
+    lvm_lvfilesystem: "{{ docker_lvfilesystem }}"
+    lvm_lvopts: "{{ docker_lvopts | default(None) }}"
+  when: docker_use_custom_storage
