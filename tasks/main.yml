@@ -3,6 +3,7 @@
 - ansible.builtin.import_tasks: pre_tasks.yml
 
 - name: docker | Import a key for docker
+  become: true
   ansible.builtin.rpm_key:
     state: present
     key: https://download.docker.com/linux/centos/gpg
@@ -58,6 +59,7 @@
 
 # change service file to remove _H options from service file to be able to use daemon.json
 - name: docker | remove options from service
+  become: true
   ansible.builtin.replace:
     path:  /usr/lib/systemd/system/docker.service
     regexp: ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
